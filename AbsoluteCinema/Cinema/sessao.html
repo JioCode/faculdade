@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sessão</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/cinema.js" defer></script>
+</head>
+<body>
+    <h1>SG-Cinema</h1>
+    <hr>
+    <p>
+        <a href="./home.html">Home</a>
+        <a href="./filme.html">Filme</a>
+        <a href="./sessao.html">Sessões</a>
+        <a href="./sala.html">Salas</a>
+        <a href="./ingresso.html">Ingresso</a>
+        <a href="./cliente.html">Cliente</a>
+        <a href="./contato.html">Contato</a>
+    </p>
+    <hr>
+    <h3 id="tituloPage">Sessão</h3>
+    <div class="container">
+        <form id="sessaoForm">
+            <p>
+                <label for="filme">Filme</label><br>
+                <select id="filme"></select><br>
+                
+                <label for="sala">Sala</label><br>
+                <select id="sala"></select><br>
+
+                <label for="dataHora">Data e Hora</label><br>
+                <input id="dataHora" type="datetime-local"><br><br>
+
+                <button type="button" onclick="adicionarSessao()">Adicionar</button>
+                <button type="button" onclick="editarSessao()">Editar</button>
+                <button type="button" onclick="removerSessao()">Remover</button>
+            </p>
+        </form>
+        
+        <h4>Lista de Sessões</h4>
+        <ul id="listaSessoes"></ul>
+    </div>
+</body>
+</html>

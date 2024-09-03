@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/cinema.js" defer></script>
+</head>
+<body>
+    <h1>SG-Cinema</h1>
+    <hr>
+    <p>
+        <a href="./home.html">Home</a>
+        <a href="./filme.html">Filme</a>
+        <a href="./sessao.html">Sessões</a>
+        <a href="./sala.html">Salas</a>
+        <a href="./ingresso.html">Ingresso</a>
+        <a href="./cliente.html">Cliente</a>
+        <a href="./contato.html">Contato</a>
+    </p>
+    <hr>
+    <h3 id="tituloPage">Sala</h3>
+    <div class="container">
+        <form id="salaForm">
+            <p>
+                <label for="nomeSala">Nome da Sala</label><br>
+                <input id="nomeSala" type="text" placeholder="Digite o nome da sala"><br>
+                
+                <label for="capacidade">Capacidade</label><br>
+                <input id="capacidade" type="number" placeholder="Digite a capacidade da sala"><br><br>
+
+                <button type="button" onclick="adicionarSala()">Adicionar</button>
+                <button type="button" onclick="editarSala()">Editar</button>
+                <button type="button" onclick="removerSala()">Remover</button>
+            </p>
+        </form>
+        
+        <h4>Lista de Salas</h4>
+        <ul id="listaSalas"></ul>
+    </div>
+</body>
+</html>

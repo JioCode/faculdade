@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/cinema.js" defer></script>
+</head>
+<body>
+    <h1>SG-Cinema</h1>
+    <hr>
+    <p>
+        <a href="./home.html">Home</a>
+        <a href="./filme.html">Filme</a>
+        <a href="./sessao.html">Sessões</a>
+        <a href="./sala.html">Salas</a>
+        <a href="./ingresso.html">Ingresso</a>
+        <a href="./cliente.html">Cliente</a>
+        <a href="./contato.html">Contato</a>
+    </p>
+    <hr>
+    <h3 id="tituloPage">Cliente</h3>
+    <div class="container">
+        <form id="clienteForm">
+            <p>
+                <label for="nomeCliente">Nome</label><br>
+                <input id="nomeCliente" type="text" placeholder="Digite o nome do cliente"><br>
+
+                <label for="cpfCliente">CPF</label><br>
+                <input id="cpfCliente" type="text" placeholder="Digite o CPF do cliente"><br>
+
+                <label for="emailCliente">E-mail</label><br>
+                <input id="emailCliente" type="email" placeholder="Digite o e-mail do cliente"><br><br>
+
+                <button type="button" onclick="cadastrarCliente()">Cadastrar</button>
+                <button type="button" onclick="editarCliente()">Editar</button>
+                <button type="button" onclick="removerCliente()">Remover</button>
+            </p>
+        </form>
+        
+        <h4>Lista de Clientes</h4>
+        <ul id="listaClientes"></ul>
+    </div>
+</body>
+</html>

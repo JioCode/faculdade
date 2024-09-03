@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filme</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/cinema.js" defer></script>
+</head>
+<body>
+    <h1>SG-Cinema</h1>
+    <hr>
+    <p>
+        <a href="./home.html">Home</a>
+        <a href="./filme.html">Filme</a>
+        <a href="./sessao.html">Sessões</a>
+        <a href="./sala.html">Salas</a>
+        <a href="./ingresso.html">Ingresso</a>
+        <a href="./cliente.html">Cliente</a>
+        <a href="./contato.html">Contato</a>
+    </p>
+    <hr>
+    <h3 id="tituloPage">Filme</h3>
+    <div class="container">
+        <form id="filmeForm">
+            <p>
+                <label for="titulo">Título</label><br>
+                <input id="titulo" type="text" placeholder="Digite o título do filme"><br>
+                
+                <label for="classificacao">Classificação</label>
+                <select id="classificacao">
+                    <option value="livre">Livre</option>
+                    <option value="12">12+</option>
+                    <option value="16">16+</option>
+                    <option value="18">18+</option>
+                </select><br>
+                
+                <label for="genero">Gênero</label>
+                <select id="genero">
+                    <option value="acao">Ação</option>
+                    <option value="aventura">Aventura</option>
+                    <option value="drama">Drama</option>
+                    <option value="terror">Terror</option>
+                </select><br><br>
+
+                <button type="button" onclick="adicionarFilme()">Adicionar</button>
+                <button type="button" onclick="editarFilme()">Editar</button>
+                <button type="button" onclick="removerFilme()">Remover</button>
+            </p>
+        </form>
+        
+        <h4>Lista de Filmes</h4>
+        <ul id="listaFilmes"></ul>
+    </div>
+</body>
+</html>
