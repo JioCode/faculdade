@@ -27,6 +27,9 @@
                 <label for="titulo">Título</label><br>
                 <input id="titulo" type="text" placeholder="Digite o título do filme"><br>
                 
+                <label for="Duracao">Duração (min):</label><br>
+                <input id="duracao" type="number" placeholder="Duração em minutos"><br>
+
                 <label for="classificacao">Classificação</label>
                 <select id="classificacao">
                     <option value="livre">Livre</option>
@@ -44,7 +47,6 @@
                 </select><br><br>
 
                 <button type="button" onclick="adicionarFilme()">Adicionar</button>
-                <button type="button" onclick="editarFilme()">Editar</button>
                 <button type="button" onclick="removerFilme()">Remover</button>
             </p>
         </form>

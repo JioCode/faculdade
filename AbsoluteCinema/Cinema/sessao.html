@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sessão</title>
+    <title>Sessões</title>
     <link rel="stylesheet" href="./css/styles.css">
     <script src="./js/cinema.js" defer></script>
 </head>
@@ -20,27 +20,25 @@
         <a href="./contato.html">Contato</a>
     </p>
     <hr>
-    <h3 id="tituloPage">Sessão</h3>
+    <h3 id="tituloPage">Sessões</h3>
+    <form>
     <div class="container">
-        <form id="sessaoForm">
-            <p>
-                <label for="filme">Filme</label><br>
-                <select id="filme"></select><br>
-                
-                <label for="sala">Sala</label><br>
-                <select id="sala"></select><br>
+        <p>
+            <label for="salaSelect">Sala:</label><br>
+            <select id="salaSelect"></select><br><br>
 
-                <label for="dataHora">Data e Hora</label><br>
-                <input id="dataHora" type="datetime-local"><br><br>
+            <label for="filmeSelect">Filme:</label><br>
+            <select id="filmeSelect"></select><br><br>
 
-                <button type="button" onclick="adicionarSessao()">Adicionar</button>
-                <button type="button" onclick="editarSessao()">Editar</button>
-                <button type="button" onclick="removerSessao()">Remover</button>
-            </p>
-        </form>
-        
-        <h4>Lista de Sessões</h4>
-        <ul id="listaSessoes"></ul>
+            <label for="horarioSessao">Horário:</label><br>
+            <input id="horarioSessao" type="time"><br><br>
+
+            <button type="button" onclick="adicionarSessao()">Adicionar Sessão</button>
+        </p>
     </div>
+
+    <h3>Sessões Registradas</h3>
+    <div id="listaSessoes"></div>
+    </form>
 </body>
 </html>

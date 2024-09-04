@@ -10,37 +10,22 @@ function saveLocalStorageData(key, data) {
 
 // Funções para manipular Filmes
 function adicionarFilme() {
-    const titulo = document.getElementById('titulo').value;
-    const classificacao = document.getElementById('classificacao').value;
-    const genero = document.getElementById('genero').value;
-
-    if (titulo && classificacao && genero) {
-        const filmes = getLocalStorageData('filmes');
-        filmes.push({ id: Date.now(), titulo, classificacao, genero });
-        saveLocalStorageData('filmes', filmes);
-        listarFilmes();
-        document.getElementById('filmeForm').reset();
-    }
-}
-
-function editarFilme() {
-    const titulo = document.getElementById('titulo').value;
-    const classificacao = document.getElementById('classificacao').value;
-    const genero = document.getElementById('genero').value;
     const filmes = getLocalStorageData('filmes');
-    const filmeId = parseInt(document.getElementById('filmeForm').dataset.filmeId);
 
-    const filme = filmes.find(f => f.id === filmeId);
-    if (filme) {
-        filme.titulo = titulo;
-        filme.classificacao = classificacao;
-        filme.genero = genero;
-        saveLocalStorageData('filmes', filmes);
-        listarFilmes();
-        document.getElementById('filmeForm').reset();
-        delete document.getElementById('filmeForm').dataset.filmeId;
-    }
+    const novoFilme = {
+        id: Date.now(),
+        titulo: document.getElementById('titulo').value,
+        duracao: document.getElementById('duracao').value, // Captura a duração do filme
+        classificacao: document.getElementById('classificacao').value,
+        genero: document.getElementById('genero').value
+    };
+
+    filmes.push(novoFilme);
+    saveLocalStorageData('filmes', filmes);
+
+    alert('Filme adicionado com sucesso!');
 }
+
 
 function removerFilme(id) {
     let filmes = getLocalStorageData('filmes');
@@ -78,40 +63,49 @@ function preencherFilme(id) {
 
 // Funções para manipular Salas
 function adicionarSala() {
-    const nomeSala = document.getElementById('nomeSala').value;
-    const capacidade = document.getElementById('capacidade').value;
-
-    if (nomeSala && capacidade) {
-        const salas = getLocalStorageData('salas');
-        salas.push({ id: Date.now(), nomeSala, capacidade });
-        saveLocalStorageData('salas', salas);
-        listarSalas();
-        document.getElementById('salaForm').reset();
-    }
-}
-
-function editarSala() {
-    const nomeSala = document.getElementById('nomeSala').value;
-    const capacidade = document.getElementById('capacidade').value;
     const salas = getLocalStorageData('salas');
-    const salaId = parseInt(document.getElementById('salaForm').dataset.salaId);
 
-    const sala = salas.find(s => s.id === salaId);
-    if (sala) {
-        sala.nomeSala = nomeSala;
-        sala.capacidade = capacidade;
-        saveLocalStorageData('salas', salas);
-        listarSalas();
-        document.getElementById('salaForm').reset();
-        delete document.getElementById('salaForm').dataset.salaId;
-    }
+    const novaSala = {
+        id: Date.now(),
+        nome: document.getElementById('nomeSala').value,
+        capacidade: document.getElementById('capacidadeSala').value
+    };
+
+    salas.push(novaSala);
+    saveLocalStorageData('salas', salas);
+
+    alert('Sala adicionada com sucesso!');
+    carregarSalas();
 }
+
+function carregarSalas() {
+    const salas = getLocalStorageData('salas');
+    const listaSalas = document.getElementById('listaSalas');
+
+    listaSalas.innerHTML = ''; // Limpa o conteúdo antes de carregar as salas
+
+    salas.forEach(sala => {
+        const salaDiv = document.createElement('div');
+        salaDiv.className = 'sala';
+
+        salaDiv.innerHTML = `
+            <h4>${sala.nome}</h4>
+            <p>Capacidade: ${sala.capacidade}</p>
+            <button onclick="removerSala(${sala.id})">Remover</button>
+        `;
+
+        listaSalas.appendChild(salaDiv);
+    });
+}
+
 
 function removerSala(id) {
     let salas = getLocalStorageData('salas');
     salas = salas.filter(sala => sala.id !== id);
     saveLocalStorageData('salas', salas);
-    listarSalas();
+
+    alert('Sala removida com sucesso!');
+    carregarSalas();
 }
 
 function listarSalas() {
@@ -141,75 +135,89 @@ function preencherSala(id) {
 }
 
 // Funções para manipular Sessões
-function adicionarSessao() {
-    const filmeId = document.getElementById('filme').value;
-    const salaId = document.getElementById('sala').value;
-    const dataHora = document.getElementById('dataHora').value;
-
-    if (filmeId && salaId && dataHora) {
-        const sessoes = getLocalStorageData('sessoes');
-        sessoes.push({ id: Date.now(), filmeId, salaId, dataHora });
-        saveLocalStorageData('sessoes', sessoes);
-        listarSessoes();
-        document.getElementById('sessaoForm').reset();
-    }
-}
-
-function editarSessao() {
-    const filmeId = document.getElementById('filme').value;
-    const salaId = document.getElementById('sala').value;
-    const dataHora = document.getElementById('dataHora').value;
-    const sessoes = getLocalStorageData('sessoes');
-    const sessaoId = parseInt(document.getElementById('sessaoForm').dataset.sessaoId);
-
-    const sessao = sessoes.find(s => s.id === sessaoId);
-    if (sessao) {
-        sessao.filmeId = filmeId;
-        sessao.salaId = salaId;
-        sessao.dataHora = dataHora;
-        saveLocalStorageData('sessoes', sessoes);
-        listarSessoes();
-        document.getElementById('sessaoForm').reset();
-        delete document.getElementById('sessaoForm').dataset.sessaoId;
-    }
-}
-
-function removerSessao(id) {
-    let sessoes = getLocalStorageData('sessoes');
-    sessoes = sessoes.filter(sessao => sessao.id !== id);
-    saveLocalStorageData('sessoes', sessoes);
-    listarSessoes();
-}
-
-function listarSessoes() {
-    const sessoes = getLocalStorageData('sessoes');
-    const filmes = getLocalStorageData('filmes');
+// Função para carregar salas e filmes e preencher os selects na página de sessões
+function carregarSalasEFilmes() {
     const salas = getLocalStorageData('salas');
-    const listaSessoes = document.getElementById('listaSessoes');
-    listaSessoes.innerHTML = '';
+    const filmes = getLocalStorageData('filmes');
 
-    sessoes.forEach(sessao => {
-        const filme = filmes.find(f => f.id === parseInt(sessao.filmeId)) || {};
-        const sala = salas.find(s => s.id === parseInt(sessao.salaId)) || {};
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <strong>${filme.titulo || 'Filme Desconhecido'}</strong> - Sala: ${sala.nomeSala || 'Sala Desconhecida'} - Data/Hora: ${new Date(sessao.dataHora).toLocaleString()}
-            <button onclick="preencherSessao(${sessao.id})">Editar</button>
-            <button onclick="removerSessao(${sessao.id})">Remover</button>
-        `;
-        listaSessoes.appendChild(li);
+    const salaSelect = document.getElementById('salaSelect');
+    const filmeSelect = document.getElementById('filmeSelect');
+
+    salas.forEach(sala => {
+        const option = document.createElement('option');
+        option.value = sala.id;
+        option.textContent = `${sala.nome} (Capacidade: ${sala.capacidade})`;
+        salaSelect.appendChild(option);
+    });
+
+    filmes.forEach(filme => {
+        const option = document.createElement('option');
+        option.value = filme.id;
+        option.textContent = `${filme.titulo} (${filme.duracao} min)`;
+        filmeSelect.appendChild(option);
     });
 }
 
-function preencherSessao(id) {
+// Chama a função ao carregar a página de sessão
+document.addEventListener('DOMContentLoaded', () => {
+    carregarSalasEFilmes();
+    carregarSessoes();
+    carregarSalas();
+});
+
+// Função para carregar as sessões e exibi-las na página
+function carregarSessoes() {
     const sessoes = getLocalStorageData('sessoes');
-    const sessao = sessoes.find(s => s.id === id);
-    if (sessao) {
-        document.getElementById('filme').value = sessao.filmeId;
-        document.getElementById('sala').value = sessao.salaId;
-        document.getElementById('dataHora').value = sessao.dataHora;
-        document.getElementById('sessaoForm').dataset.sessaoId = id;
+    const salas = getLocalStorageData('salas');
+    const filmes = getLocalStorageData('filmes');
+    const listaSessoes = document.getElementById('listaSessoes');
+
+    listaSessoes.innerHTML = ''; // Limpa o conteúdo antes de carregar as sessões
+
+    if (sessoes.length === 0) {
+        listaSessoes.innerHTML = '<p>Nenhuma sessão registrada.</p>';
+        return;
     }
+
+    sessoes.forEach(sessao => {
+        const sala = salas.find(sala => sala.id == sessao.salaId);
+        const filme = filmes.find(filme => filme.id == sessao.filmeId);
+
+        if (!sala || !filme) {
+            console.error('Sala ou filme não encontrado para a sessão:', sessao);
+            return;
+        }
+
+        const sessaoDiv = document.createElement('div');
+        sessaoDiv.className = 'sessao';
+
+        sessaoDiv.innerHTML = `
+            <h4>${filme.titulo} - ${filme.duracao} min</h4>
+            <p>Sala: ${sala.nome} (Capacidade: ${sala.capacidade})</p>
+            <p>Horário: ${sessao.horario}</p>
+            <button onclick="comprarIngresso(${sessao.id})">Comprar Ingresso</button>
+        `;
+
+        listaSessoes.appendChild(sessaoDiv);
+    });
+}
+
+// Função para adicionar uma nova sessão
+function adicionarSessao() {
+    const sessoes = getLocalStorageData('sessoes');
+
+    const novaSessao = {
+        id: Date.now(),
+        salaId: document.getElementById('salaSelect').value,
+        filmeId: document.getElementById('filmeSelect').value,
+        horario: document.getElementById('horarioSessao').value
+    };
+
+    sessoes.push(novaSessao);
+    saveLocalStorageData('sessoes', sessoes);
+
+    alert('Sessão adicionada com sucesso!');
+    carregarSessoes(); // Recarrega a lista de sessões após adicionar uma nova
 }
 
 // Funções para manipular Ingressos

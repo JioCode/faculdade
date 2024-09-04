@@ -21,23 +21,21 @@
     </p>
     <hr>
     <h3 id="tituloPage">Sala</h3>
+    <form>
     <div class="container">
-        <form id="salaForm">
-            <p>
-                <label for="nomeSala">Nome da Sala</label><br>
-                <input id="nomeSala" type="text" placeholder="Digite o nome da sala"><br>
-                
-                <label for="capacidade">Capacidade</label><br>
-                <input id="capacidade" type="number" placeholder="Digite a capacidade da sala"><br><br>
+        <p>
+            <label for="nomeSala">Nome da Sala:</label><br>
+            <input id="nomeSala" type="text" placeholder="Nome da sala"><br>
 
-                <button type="button" onclick="adicionarSala()">Adicionar</button>
-                <button type="button" onclick="editarSala()">Editar</button>
-                <button type="button" onclick="removerSala()">Remover</button>
-            </p>
-        </form>
-        
-        <h4>Lista de Salas</h4>
-        <ul id="listaSalas"></ul>
+            <label for="capacidadeSala">Capacidade:</label><br>
+            <input id="capacidadeSala" type="number" placeholder="Número de assentos"><br><br>
+
+            <button type="button" onclick="adicionarSala()">Adicionar</button>
+        </p>
     </div>
+
+    <h3>Salas Registradas</h3>
+    <div id="listaSalas"></div>
+    </form>
 </body>
 </html>
